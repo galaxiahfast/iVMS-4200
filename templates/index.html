@@ -13,45 +13,63 @@
 
 <div id="toast-container"></div>
 
-<div class="container">
-    <div class="header">
-        <h1 class="titulo-clean">TERMINAL IVMS-4200</h1>
-        <p class="info-bar">ADMINISTRACIÓN DE HORAS | DATAMID</p>
+
+
+
+
+
+
+<div class="contenedor-principal">
+
+    <div class="seccion-cabecera">
+        <h1 class="titulo_principal">TERMINAL IVMS-4200</h1>
+        <p class="texto_informativo">ADMINISTRACIÓN DE HORAS | DATAMID</p>
     </div>
 
-    <div id="seccion-filtros">
+    <div id="seccion-filtros" class="contenedor-filtros">
         <form onsubmit="event.preventDefault(); generarReporte();">
-            <div class="filtros-grid">
-                <div class="input-group">
-                    <label>Empleado</label>
-                    <input type="text" id="nombre" class="form-input" value="Julian">
+            <div class="rejilla-filtros">
+                
+                <div class="grupo-entrada">
+                    <label class="etiqueta_entrada">Empleado</label>
+                    <input type="text" id="nombre" class="input_neumorfico" value="Julian">
                 </div>
-                <div class="input-group">
-                    <label>Costo Hora</label>
-                    <input type="number" id="pago" class="form-input" value="25" step="any">
+
+                <div class="grupo-entrada">
+                    <label class="etiqueta_entrada">Costo Hora</label>
+                    <input type="number" id="pago" class="input_neumorfico" value="25" step="any">
                 </div>
-                <div class="input-group">
-                    <label>Bono</label>
-                    <input type="number" id="bono" class="form-input" value="60" step="any">
+
+                <div class="grupo-entrada">
+                    <label class="etiqueta_entrada">Bono</label>
+                    <input type="number" id="bono" class="input_neumorfico" value="60" step="any">
                 </div>
-                <div class="input-group">
-                    <label>Desde</label>
-                    <input type="date" id="inicio" class="form-input">
+
+                <div class="grupo-entrada">
+                    <label class="etiqueta_entrada">Desde</label>
+                    <input type="text" id="inicio" class="input_neumorfico" placeholder="Seleccionar fecha">
                 </div>
-                <div class="input-group">
-                    <label>Hasta</label>
-                    <input type="date" id="fin" class="form-input">
+
+                <div class="grupo-entrada">
+                    <label class="etiqueta_entrada">Hasta</label>
+                    <input type="text" id="fin" class="input_neumorfico" placeholder="Seleccionar fecha">
                 </div>
+
                 <div style="display: flex; align-items: flex-end;">
-                    <button type="submit" id="btn-ir" class="btn-neu">
+                    <button type="submit" id="btn-ir" class="boton_ejecutar">
                         <span id="btn-text">IR</span>
-                        <div id="btn-loader" class="spinner hidden"></div>
+                        <div id="btn-loader" class="spinner_carga oculto"></div>
                     </button>
                 </div>
+
             </div>
         </form>
     </div>
 
+
+
+
+    
         <div id="seccion-resultados" class="hidden">
         <div class="nav-header">
             <button onclick="location.reload()" class="tab-btn" style="font-weight:900;">← VOLVER</button>

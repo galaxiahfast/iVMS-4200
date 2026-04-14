@@ -1,304 +1,336 @@
+/* ============================================================
+   1. VARIABLES Y CONFIGURACIÓN MAESTRA
+   ============================================================ */
 :root {
-
+    /* Paleta Neumórfica */
     --bg-color: #D1D9E6;
-
     --text-main: #37474F;
-
     --shadow-dark: rgba(147, 160, 184, 0.8);
-
     --shadow-light: rgba(255, 255, 255, 0.9);
-
     --inset-shadow-dark: rgba(147, 160, 184, 0.9);
-
     --inset-shadow-light: rgba(255, 255, 255, 1);
-
+    
+    /* Animación y Escala */
     --ease: cubic-bezier(0.23, 1, 0.32, 1);
-
-   
-
-    /* ------------------------------------------------------------
-
-       [ CONTROL DE ESCALADO GLOBAL ]
-
-       Configuración del multiplicador de tamaño
-
-       1.0 = 100% | 0.85 = 85% | 0.75 = 75%
-
-       ------------------------------------------------------------ */
-
-    --escala-interfaz: 0.85;
-
+    --escala-interfaz: 0.85; /* Control de zoom global */
 }
 
-
-
+/* ============================================================
+   2. RESET UNIVERSAL
+   ============================================================ */
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
     font-family: 'Montserrat', sans-serif;
-
     outline: none;
-
-    border: none;
-
+    border: none; /* Limpieza de bordes nativos */
 }
 
-
-
+/* ============================================================
+   3. ESTRUCTURA BASE (LAYOUT)
+   ============================================================ */
 body {
-
     background-color: var(--bg-color);
-
     color: var(--text-main);
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
-    overflow: hidden;
-
-
-
-    /* ------------------------------------------------------------
-
-       [ CONTROL DE ESCALADO GLOBAL ]
-
-       Ajuste de altura para evitar cortes visuales
-
-       ------------------------------------------------------------ */
-
     min-height: 100vh;
-
+    overflow: hidden; /* Evita scroll en el fondo */
 }
 
 
 
-.container {
 
+
+
+
+
+
+
+/* =====================================================================
+   PROYECTO: TERMINAL IVMS-4200 - DATAMID
+   MODULO: (01) PANEL PRINCIPAL - CONTROL Y FILTROS
+   ESTILO: NEUMORFISMO PROFESIONAL
+   ---------------------------------------------------------------------
+   ARQUITECTURA DE ESTA SECCIÓN:
+
+   1. CONTENEDOR RAIZ
+      - .contenedor-principal (Cuerpo maestro del sistema)
+
+   2. CABECERA DE MARCA
+      - .seccion-cabecera (Layout de títulos)
+
+   3. SISTEMA DE FILTRADO (CAPTURA)
+      - .contenedor-filtros (Wrapper de formulario)
+      - .input_neumorfico (Campos base)
+      - #inicio, #fin (Campos específicos con icono de calendario)
+
+   4. DISPARADOR DE ACCIÓN
+      - .boton_ejecutar (Botón de consulta "IR")
+
+   5. COMPONENTES DE ESTADO Y PARCHES
+      - .spinner_carga (Animación de espera)
+      - .oculto (Clase utilitaria de visibilidad)
+      - Parches Flatpickr (Flechas y calendarios)
+
+   ---------------------------------------------------------------------
+   DESCRIPCIÓN:
+   Panel superior de captura de datos con diseño neumórfico. Incluye
+   validaciones visuales, estados de carga y personalización de 
+   librerías externas para mantener la consistencia estética.
+
+   NOTA: Sección optimizada para visualización en escritorio y tablets.
+   ===================================================================== */
+
+/* =====================================================================
+   1. CONTENEDOR RAIZ (LAYOUT MAESTRO)
+   ===================================================================== */
+
+/* --- 1.1. Base de la Interfaz --- */
+.contenedor-principal {
+    /* --- 1.1.1. Dimensionamiento y Forma --- */
     width: 100%;
-
     max-width: 900px;
-
-    background: var(--bg-color);
-
     padding: 50px;
-
     border-radius: 50px;
 
-    box-shadow: 20px 20px 60px var(--shadow-dark), -20px -20px 60px var(--shadow-light);
+    /* --- 1.1.2. Acabado Neumórfico --- */
+    background: var(--bg-color);
+    box-shadow: 20px 20px 60px var(--shadow-dark), 
+                -20px -20px 60px var(--shadow-light);
 
-
-
-    /* ------------------------------------------------------------
-
-       [ CONTROL DE ESCALADO GLOBAL ]
-
-       Aplicación del zoom por transformación y punto de anclaje
-
-       ------------------------------------------------------------ */
-
+    /* --- 1.1.3. Transformaciones y Escala --- */
     transform: scale(var(--escala-interfaz));
-
     transform-origin: center center;
-
 }
 
+/* =====================================================================
+   2. CABECERA (BRANDING)
+   ===================================================================== */
 
+/* --- 2.1. Estructura de Títulos --- */
+.contenedor-principal .seccion-cabecera {
+    /* --- 2.1.1. Alineación y Margen --- */
+    text-align: center;
+    margin-bottom: 40px;
+}
 
+/* --- 2.2. Tipografía de Marca --- */
+.contenedor-principal .seccion-cabecera .titulo_principal {
+    /* --- 2.2.1. Estilo de Título Maestro --- */
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    color: var(--text-main);
+}
 
+.contenedor-principal .seccion-cabecera .texto_informativo {
+    /* --- 2.2.2. Descriptor de Módulo --- */
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #5B708B;
+}
 
+/* =====================================================================
+   3. FORMULARIO DE CAPTURA (FILTROS)
+   ===================================================================== */
 
+/* --- 3.1. Rejilla de Distribución --- */
+.contenedor-principal .contenedor-filtros .rejilla-filtros {
+    /* --- 3.1.1. Configuración de Grid --- */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
 
-.header { text-align: center; margin-bottom: 40px; }
+/* --- 3.2. Grupos de Entrada --- */
+.contenedor-principal .contenedor-filtros .grupo-entrada {
+    /* --- 3.2.1. Flujo de Apilamiento --- */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
 
-.titulo-clean { font-weight: 900; text-transform: uppercase; font-size: 2.2rem; }
+.contenedor-principal .contenedor-filtros .grupo-entrada .etiqueta_entrada {
+    /* --- 3.2.2. Estética de Label --- */
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin: 0 0 10px 10px;
+    color: #5B708B;
+}
 
-.info-bar { font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; color: #5B708B; }
-
-
-
-.filtros-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-
-.input-group { position: relative; }
-
-.input-group label { font-size: 0.85rem; font-weight: 800; margin-left: 10px; margin-bottom: 10px; display: block; }
-
-
-
-/* --- INPUTS NEUMÓRFICOS --- */
-
-.form-input {
-
+/* --- 3.3. Inputs con Profundidad (Efecto Inset) --- */
+.contenedor-principal .contenedor-filtros .input_neumorfico {
+    /* --- 3.3.1. Geometría y Fondo --- */
     width: 100%;
-
     background: var(--bg-color);
-
     border-radius: 20px;
-
     padding: 16px;
 
+    /* --- 3.3.2. Tipografía Interna --- */
     font-size: 1.1rem;
-
     font-weight: 600;
-
-    box-shadow: inset 6px 6px 12px var(--inset-shadow-dark), inset -6px -6px 12px var(--inset-shadow-light);
-
     color: var(--text-main);
 
-    appearance: none;
-
-    -webkit-appearance: none;
-
+    /* --- 3.3.3. Relieve Interno 3D --- */
+    box-shadow: inset 6px 6px 12px var(--inset-shadow-dark), 
+                inset -6px -6px 12px var(--inset-shadow-light);
+    background-image: none;
 }
 
-
-
-/* Quitar flechas de números */
-
-input[type="number"]::-webkit-inner-spin-button,
-
-input[type="number"]::-webkit-outer-spin-button {
-
-    -webkit-appearance: none;
-
-    margin: 0;
-
-   
-
-}
-
-input[type="number"] { -moz-appearance: textfield; }
-
-
-
-/* Configuración Date e Icono */
-
-input[type="date"], .flatpickr-input {
-
+/* --- 3.4. Especialización para Calendarios (#inicio, #fin) --- */
+#inicio, #fin {
+    /* --- 3.4.1. Área de Interacción --- */
+    padding-right: 45px !important;
     cursor: pointer;
-
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
-
-    background-repeat: no-repeat;
-
-    background-position: right 15px center;
-
-    background-size: 18px;
-
+    
+    /* --- 3.4.2. Inyección de Icono Vectorial --- */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235B708B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 15px center !important;
 }
 
+/* =====================================================================
+   4. BOTÓN DE ACCIÓN FINAL
+   ===================================================================== */
 
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-
-    display: none;
-
-}
-
-
-
-/* --- BOTONES Y TABS --- */
-
-.btn-neu {
-
+/* --- 4.1. Botón de Ejecución (Convexo) --- */
+.contenedor-principal .contenedor-filtros .boton_ejecutar {
+    /* --- 4.1.1. Dimensiones y Geometría --- */
     width: 100%;
-
     height: 58px;
-
     background: var(--bg-color);
-
-    font-size: 1.1rem;
-
-    font-weight: 900;
-
     border-radius: 20px;
 
-    cursor: pointer;
-
-    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-   
-
-    /* ESTA LÍNEA CORRIGE EL COLOR DE LA LETRA */
-
+    /* --- 4.1.2. Estilo de Texto --- */
+    font-size: 1.1rem;
+    font-weight: 900;
     color: var(--text-main) !important;
-
-   
-
+    cursor: pointer;
+    
+    /* --- 4.1.3. Distribución y Transición --- */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.2s var(--ease);
 
+    /* --- 4.1.4. Relieve Exterior --- */
+    box-shadow: 8px 8px 16px var(--shadow-dark), 
+                -8px -8px 16px var(--shadow-light);
 }
 
-
-
-/* También asegúrate de que al presionar no cambie a negro */
-
-.btn-neu:active {
-
-    box-shadow: inset 4px 4px 8px var(--inset-shadow-dark),
-
+/* --- 4.2. Feedback de Presión (Active) --- */
+.contenedor-principal .contenedor-filtros .boton_ejecutar:active {
+    /* --- 4.2.1. Simulación de Pulsación --- */
+    box-shadow: inset 4px 4px 8px var(--inset-shadow-dark), 
                 inset -4px -4px 8px var(--inset-shadow-light);
-
     transform: scale(0.98);
+}
 
-    color: var(--text-main) !important;
+/* =====================================================================
+   5. COMPONENTES DE ESTADO Y PARCHES VISUALES
+   ===================================================================== */
 
+/* --- 5.1. Clase Utilitaria de Visibilidad --- */
+.oculto {
+    /* --- 5.1.1. Abstracción Forzada --- */
+    display: none !important;
+}
+
+/* --- 5.2. Spinner de Carga Neumórfico --- */
+.spinner_carga {
+    /* --- 5.2.1. Dimensionamiento y Bordes --- */
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--shadow-dark);
+    border-top: 3px solid var(--text-main);
+    border-radius: 50%;
+
+    /* --- 5.2.2. Definición de Animación --- */
+    animation: girar_spinner 0.8s linear infinite;
+}
+
+@keyframes girar_spinner {
+    /* --- 5.2.3. Lógica de Rotación --- */
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- 5.3. Parches de Consistencia Flatpickr --- */
+.flatpickr-calendar {
+    /* --- 5.3.1. Limpieza de Bordes --- */
+    border: none !important;
+}
+
+.flatpickr-prev-month, 
+.flatpickr-next-month {
+    /* --- 5.3.2. Alineación de Navegadores --- */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    fill: var(--text-main) !important;
+}
+
+.flatpickr-prev-month svg, 
+.flatpickr-next-month svg {
+    /* --- 5.3.3. Proporciones de Iconos --- */
+    width: 14px !important;
+    height: 14px !important;
 }
 
 
 
-.tabs-container { display: flex; gap: 15px; margin-bottom: 25px; }
-
-.tab-btn {
-
-    padding: 12px 25px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; cursor: pointer;
-
-    background: var(--bg-color);
-
-    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
-
-}
-
-.tab-btn.active { box-shadow: inset 3px 3px 6px var(--inset-shadow-dark), inset -3px -3px 6px var(--inset-shadow-light); }
 
 
 
-/* --- PANELES Y TABLAS --- */
 
-.panel-neu {
 
+
+
+/* ============================================================
+   SECCIÓN 4: PANEL DE RESULTADOS Y TABLAS
+   ============================================================ */
+.contenedor-principal .panel-resultados {
     padding: 25px;
-
     border-radius: 30px;
+    box-shadow: inset 3px 3px 8px var(--inset-shadow-dark), 
+                inset -3px -3px 8px var(--inset-shadow-light);
+    margin-top: 20px;
+}
 
-    box-shadow: inset 3px 3px 8px var(--inset-shadow-dark), inset -3px -3px 8px var(--inset-shadow-light);
+.contenedor-principal .tabla_resultados {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
 
+.contenedor-principal .tabla_resultados tr {
+    background: var(--bg-color);
+    box-shadow: 4px 4px 8px var(--shadow-dark), 
+                -4px -4px 8px var(--shadow-light);
+}
+
+.contenedor-principal .tabla_resultados td {
+    padding: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Bordes redondeados para las filas de la tabla */
+.contenedor-principal .tabla_resultados tr td:first-child { 
+    border-radius: 15px 0 0 15px; 
+}
+.contenedor-principal .tabla_resultados tr td:last-child { 
+    border-radius: 0 15px 15px 0; 
 }
 
 
 
-.table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
 
-.table tr { background: var(--bg-color); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); border-radius: 12px; }
-
-.table td { padding: 15px; font-size: 0.9rem; }
-
-
-
-.total-badge { background: var(--text-main); color: #fff; padding: 15px 30px; border-radius: 20px; font-size: 1.5rem; font-weight: 900; }
 
 
 

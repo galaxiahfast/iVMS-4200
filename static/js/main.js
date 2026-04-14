@@ -69,8 +69,8 @@ async function generarReporte() {
     if (!payload.inicio || !payload.fin) return mostrarError("Seleccione un rango de fechas");
 
     estaCargando = true;
-    document.getElementById('btn-text').classList.add('hidden');
-    document.getElementById('btn-loader').classList.remove('hidden');
+    document.getElementById('btn-text').classList.add('oculto');
+    document.getElementById('btn-loader').classList.remove('oculto');
 
     try {
         const res = await fetch('/consultar', {
@@ -113,7 +113,7 @@ async function generarReporte() {
         mostrarError(e.message || "Error de conexión");
     } finally {
         estaCargando = false;
-        document.getElementById('btn-text').classList.remove('hidden');
-        document.getElementById('btn-loader').classList.add('hidden');
+        document.getElementById('btn-text').classList.remove('oculto');
+        document.getElementById('btn-loader').classList.add('oculto');
     }
 }
