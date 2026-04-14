@@ -1,0 +1,740 @@
+:root {
+
+    --bg-color: #D1D9E6;
+
+    --text-main: #37474F;
+
+    --shadow-dark: rgba(147, 160, 184, 0.8);
+
+    --shadow-light: rgba(255, 255, 255, 0.9);
+
+    --inset-shadow-dark: rgba(147, 160, 184, 0.9);
+
+    --inset-shadow-light: rgba(255, 255, 255, 1);
+
+    --ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+   
+
+    /* ------------------------------------------------------------
+
+       [ CONTROL DE ESCALADO GLOBAL ]
+
+       Configuración del multiplicador de tamaño
+
+       1.0 = 100% | 0.85 = 85% | 0.75 = 75%
+
+       ------------------------------------------------------------ */
+
+    --escala-interfaz: 0.85;
+
+}
+
+
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Montserrat', sans-serif;
+
+    outline: none;
+
+    border: none;
+
+}
+
+
+
+body {
+
+    background-color: var(--bg-color);
+
+    color: var(--text-main);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: hidden;
+
+
+
+    /* ------------------------------------------------------------
+
+       [ CONTROL DE ESCALADO GLOBAL ]
+
+       Ajuste de altura para evitar cortes visuales
+
+       ------------------------------------------------------------ */
+
+    min-height: 100vh;
+
+}
+
+
+
+.container {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    background: var(--bg-color);
+
+    padding: 50px;
+
+    border-radius: 50px;
+
+    box-shadow: 20px 20px 60px var(--shadow-dark), -20px -20px 60px var(--shadow-light);
+
+
+
+    /* ------------------------------------------------------------
+
+       [ CONTROL DE ESCALADO GLOBAL ]
+
+       Aplicación del zoom por transformación y punto de anclaje
+
+       ------------------------------------------------------------ */
+
+    transform: scale(var(--escala-interfaz));
+
+    transform-origin: center center;
+
+}
+
+
+
+
+
+
+
+.header { text-align: center; margin-bottom: 40px; }
+
+.titulo-clean { font-weight: 900; text-transform: uppercase; font-size: 2.2rem; }
+
+.info-bar { font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; color: #5B708B; }
+
+
+
+.filtros-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+
+.input-group { position: relative; }
+
+.input-group label { font-size: 0.85rem; font-weight: 800; margin-left: 10px; margin-bottom: 10px; display: block; }
+
+
+
+/* --- INPUTS NEUMÓRFICOS --- */
+
+.form-input {
+
+    width: 100%;
+
+    background: var(--bg-color);
+
+    border-radius: 20px;
+
+    padding: 16px;
+
+    font-size: 1.1rem;
+
+    font-weight: 600;
+
+    box-shadow: inset 6px 6px 12px var(--inset-shadow-dark), inset -6px -6px 12px var(--inset-shadow-light);
+
+    color: var(--text-main);
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+}
+
+
+
+/* Quitar flechas de números */
+
+input[type="number"]::-webkit-inner-spin-button,
+
+input[type="number"]::-webkit-outer-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+   
+
+}
+
+input[type="number"] { -moz-appearance: textfield; }
+
+
+
+/* Configuración Date e Icono */
+
+input[type="date"], .flatpickr-input {
+
+    cursor: pointer;
+
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+
+    background-repeat: no-repeat;
+
+    background-position: right 15px center;
+
+    background-size: 18px;
+
+}
+
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+
+    display: none;
+
+}
+
+
+
+/* --- BOTONES Y TABS --- */
+
+.btn-neu {
+
+    width: 100%;
+
+    height: 58px;
+
+    background: var(--bg-color);
+
+    font-size: 1.1rem;
+
+    font-weight: 900;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+   
+
+    /* ESTA LÍNEA CORRIGE EL COLOR DE LA LETRA */
+
+    color: var(--text-main) !important;
+
+   
+
+    transition: all 0.2s var(--ease);
+
+}
+
+
+
+/* También asegúrate de que al presionar no cambie a negro */
+
+.btn-neu:active {
+
+    box-shadow: inset 4px 4px 8px var(--inset-shadow-dark),
+
+                inset -4px -4px 8px var(--inset-shadow-light);
+
+    transform: scale(0.98);
+
+    color: var(--text-main) !important;
+
+}
+
+
+
+.tabs-container { display: flex; gap: 15px; margin-bottom: 25px; }
+
+.tab-btn {
+
+    padding: 12px 25px; border-radius: 15px; font-size: 0.8rem; font-weight: 800; cursor: pointer;
+
+    background: var(--bg-color);
+
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+
+}
+
+.tab-btn.active { box-shadow: inset 3px 3px 6px var(--inset-shadow-dark), inset -3px -3px 6px var(--inset-shadow-light); }
+
+
+
+/* --- PANELES Y TABLAS --- */
+
+.panel-neu {
+
+    padding: 25px;
+
+    border-radius: 30px;
+
+    box-shadow: inset 3px 3px 8px var(--inset-shadow-dark), inset -3px -3px 8px var(--inset-shadow-light);
+
+}
+
+
+
+.table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+
+.table tr { background: var(--bg-color); box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light); border-radius: 12px; }
+
+.table td { padding: 15px; font-size: 0.9rem; }
+
+
+
+.total-badge { background: var(--text-main); color: #fff; padding: 15px 30px; border-radius: 20px; font-size: 1.5rem; font-weight: 900; }
+
+
+
+
+
+
+/* =====================================================================
+   COMPONENTE: FLATPICKR (CALENDARIO)
+   ESTILO: NEUMORFISMO
+   ---------------------------------------------------------------------
+   ARQUITECTURA DEL COMPONENTE:
+
+   1. CONTENEDOR PRINCIPAL
+      - .flatpickr-calendar
+
+   2. CABECERA (NAVEGACIÓN)
+      - .flatpickr-months
+      - .flatpickr-month
+      - .flatpickr-current-month
+      - .flatpickr-prev-month / .flatpickr-next-month
+
+   3. DÍAS DE LA SEMANA (LABELS)
+      - .flatpickr-weekdays
+      - .flatpickr-weekdaycontainer
+
+   4. ESTRUCTURA DE DÍAS (CUADRÍCULA)
+      - .flatpickr-innerContainer
+      - .flatpickr-rContainer
+      - .flatpickr-days
+      - .dayContainer
+
+   5. CELDAS DE DÍA
+      - .flatpickr-day
+      - Estados: .selected, .today, .prevMonthDay, etc.
+
+   6. AJUSTES VISUALES / LIMPIEZA
+      - Eliminación de elementos residuales
+      - Correcciones de layout
+
+   ---------------------------------------------------------------------
+   DESCRIPCIÓN:
+   Personalización completa del calendario para integrarlo al sistema
+   de diseño, aplicando neumorfismo mediante sombras, relieves y
+   consistencia en proporciones.
+
+   NOTA:
+   Cada sección del código está delimitada numéricamente para facilitar
+   mantenimiento y escalabilidad.
+   ===================================================================== */
+
+/* =====================================================================
+   1. CONTENEDOR PRINCIPAL
+   ===================================================================== */
+
+/* -----------------------
+   [A] CUERPO Y ESTÉTICA GLOBAL 
+   ----------------------- */
+
+/* --- A.1. Base del Calendario --- */
+.flatpickr-calendar {
+    /* --- A.1.1. Dimensiones y Distribución Vertical --- */
+    width: auto !important; 
+    height: auto !important; 
+    display: flex !important;          
+    flex-direction: column !important; 
+    justify-content: space-between !important; 
+    box-sizing: border-box !important;
+    gap: 15px !important;
+    padding: 15px !important;
+
+    /* --- A.1.2. Diseño Visual y Neumorfismo --- */
+    background: var(--bg-color) !important;
+    border-radius: 25px !important;
+    box-shadow: 12px 12px 25px rgba(147, 160, 184, 0.4), 
+                -12px -12px 25px var(--shadow-light) !important;
+
+    /* --- A.1.3. Posicionamiento en Pantalla --- */
+    position: fixed !important;    
+    top: 50% !important;           
+    left: 50% !important;          
+    z-index: 99999 !important;
+
+    /* --- A.1.4. Control de Escala y Centrado --- */
+    transform: translate(-50%, -20%) scale(var(--escala-interfaz)) !important;
+    transform-origin: center !important; 
+}
+
+/* =====================================================================
+   2. CABECERA (NAVEGACIÓN)
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDORES DE CABECERA 
+   ----------------------- */
+
+/* --- A.1. Panel de Navegación de Meses --- */
+.flatpickr-months {
+    /* --- A.1.1. Estructura y Distribución --- */
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: space-between !important;
+    position: relative !important; 
+    
+    /* --- A.1.2. Dimensionamiento Orgánico --- */
+    width: 100% !important;
+    height: auto !important;
+    user-select: none !important;
+    padding: 20px 25px 5px 25px !important;
+}
+
+/* --- A.2. Romper la "Jaula" Interna --- */
+.flatpickr-months .flatpickr-month {
+    /* --- A.2.1. Desestructuración de Contenedor --- */
+    display: contents !important; 
+}
+
+/* -----------------------
+   [B] ESTÉTICA DEL TEXTO (MES/AÑO) 
+   ----------------------- */
+
+/* --- B.1. Visualización del Mes y Año Actual --- */
+.flatpickr-current-month {
+    /* --- B.1.1. Posicionamiento y Flexibilidad --- */
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    order: 2 !important; 
+    flex: 1 !important;
+    
+    /* --- B.1.2. Tipografía y Espaciado --- */
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+}
+
+/* --- B.2. Unificación de Negritas (800) --- */
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month .numInputWrapper,
+.flatpickr-current-month input.cur-year {
+    /* --- B.2.1. Estilo Uniforme de Texto --- */
+    font-weight: 800 !important;
+    color: inherit !important;
+}
+
+/* --- B.3. Ajuste de Input de Año --- */
+.flatpickr-current-month .numInputWrapper span { 
+    /* --- B.3.1. Limpieza de Controles Nativos --- */
+    display: none !important; 
+}
+
+/* --- B.4. Estética del Input de Año --- */
+.flatpickr-current-month input.cur-year {
+    /* --- B.3.2. Dimensionamiento por Caracteres --- */
+    width: 4.5ch !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* -----------------------
+   [C] FLECHAS DE NAVEGACIÓN 
+   ----------------------- */
+
+/* --- C.1. Cuerpo de las Flechas --- */
+.flatpickr-prev-month, 
+.flatpickr-next-month {
+    /* --- C.1.1. Reset de Posición y Capas --- */
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    width: 25px !important;
+    height: 30px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+}
+
+/* --- C.2. Ordenación y Flujo Visual --- */
+.flatpickr-prev-month { order: 1 !important; }
+.flatpickr-next-month { order: 3 !important; }
+
+/* --- C.3. Estilo de los Iconos (SVG) --- */
+.flatpickr-prev-month svg, 
+.flatpickr-next-month svg {
+    /* --- C.3.1. Proporciones del Gráfico --- */
+    width: 14px !important;
+    height: 14px !important;
+    margin: 0 !important;
+}
+
+/* =====================================================================
+   3. DÍAS DE LA SEMANA (LABELS)
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDORES DE ETIQUETAS
+   ----------------------- */
+
+/* --- A.1. Área de la Semana (Wrapper) --- */
+.flatpickr-weekdays {
+    /* --- A.1.1. Estructura y Flujo Directo --- */
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;        
+    height: auto !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    padding: 0px 25px;     
+    margin: 0 !important;
+}
+
+/* --- A.2. Grid de Distribución (Container) --- */
+.flatpickr-weekdaycontainer {
+    /* --- A.2.1. Configuración de Rejilla de 7 Días --- */
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    width: 100% !important;          
+    justify-items: center !important;
+    align-items: center !important;
+}
+
+/* =====================================================================
+   4. ESTRUCTURA DE DÍAS (CUADRÍCULA)
+   ===================================================================== */
+
+/* -----------------------
+   [A] LIBERACIÓN DE CONTENEDORES 
+   ----------------------- */
+
+/* --- A.1. Romper la Jerarquía Interna --- */
+.flatpickr-innerContainer,
+.flatpickr-rContainer { 
+    /* --- A.1.1. Eliminación visual de cajas intermedias --- */
+    display: contents !important; 
+}
+
+/* --- A.2. Contenedor de Capa de Días --- */
+.flatpickr-days {
+    /* --- A.2.1. Expansión Total --- */
+    display: block !important;
+    width: 100% !important;        
+    min-width: 100% !important;
+    max-width: none !important;    
+    background: transparent !important;
+    padding: 16px 8px 22px 8px !important;
+}
+
+/* -----------------------
+   [B] REJILLA PRINCIPAL (DAY CONTAINER)
+   ----------------------- */
+
+/* --- B.1. Configuración del Grid Principal --- */
+.dayContainer {
+    /* --- B.1.1. Definición de Rejilla de 7 Columnas --- */
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important; 
+    
+    /* --- B.1.2. Espaciado y Proporciones --- */
+    width: 100% !important;        
+    min-width: 100% !important;
+    max-width: none !important; 
+    gap: 12px !important; 
+    padding: 0px 20px !important; 
+    box-sizing: border-box !important;
+    justify-items: center !important; 
+    float: none !important; 
+}
+
+/* =====================================================================
+   5. CELDAS DE DÍA
+   ===================================================================== */
+
+/* -----------------------
+   [A] DISEÑO BASE Y GEOMETRÍA
+   ----------------------- */
+
+/* --- A.1. Consistencia Visual Global --- */
+.flatpickr-calendar .flatpickr-day,
+.flatpickr-day.selected,
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.today {
+    /* --- A.1.1. Recorte y Redondeo Neumórfico --- */
+    border-radius: 12px !important; 
+    -webkit-border-radius: 12px !important;
+    overflow: hidden !important; 
+}
+
+/* --- A.2. Estética del Botón de Día --- */
+.flatpickr-day {
+    /* --- A.2.1. Dimensiones y Centrado --- */
+    width: 40px !important;
+    aspect-ratio: 1 / 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important; 
+    
+    /* --- A.2.2. Acabado Neumorfista Blanco --- */
+    background: var(--bg-color) !important;
+    color: var(--text-main) !important;
+    border: none !important;
+    box-shadow: 4px 4px 8px var(--shadow-dark), 
+                -4px -4px 8px var(--shadow-light) !important;
+    
+    /* --- A.2.3. Animación Base --- */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+    cursor: pointer !important;
+}
+
+/* -----------------------
+   [B] INTERACCIÓN DINÁMICA (HOVER)
+   ----------------------- */
+
+/* --- B.1. Efecto de Previsualización Naranja --- */
+.flatpickr-day:hover {
+    /* --- B.1.1. Elevación y Color --- */
+    transform: translateY(-3px) scale(1.1) !important;
+    background: #FF6B00 !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    z-index: 10;
+
+    /* --- B.1.2. Sombras 3D Detalladas --- */
+    box-shadow: 
+        8px 8px 16px var(--shadow-dark), 
+        -8px -8px 16px var(--shadow-light),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* --- B.2. Lógica de Foco en Calendario --- */
+.dayContainer:hover .flatpickr-day.selected {
+    /* --- B.2.1. Apagado Visual del Seleccionado Real --- */
+    background: var(--bg-color) !important;
+    color: var(--text-main) !important;
+    box-shadow: 4px 4px 8px var(--shadow-dark), 
+                -4px -4px 8px var(--shadow-light) !important;
+    font-weight: normal !important;
+    transform: none !important;
+}
+
+/* --- B.3. Prioridad sobre Hover Actual --- */
+.dayContainer:hover .flatpickr-day.selected:hover {
+    /* --- B.3.1. Restauración de Estilo Naranja --- */
+    background: #FF6B00 !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    transform: translateY(-3px) scale(1.1) !important;
+}
+
+/* -----------------------
+   [C] ESTADOS DE CELDA Y CLIC
+   ----------------------- */
+
+/* --- C.1. Estado Seleccionado (Fijo) --- */
+.flatpickr-day.selected {
+    /* --- C.1.1. Resalte Neumorfista 3D Naranja --- */
+    background: #FF6B00 !important;
+    color: #FFFFFF !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) !important;
+    
+    /* --- C.1.2. Sombras de Profundidad --- */
+    box-shadow: 
+        4px 4px 10px rgba(204, 85, 0, 0.5), 
+        -4px -4px 10px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* --- C.2. Días Inactivos (Atenuación) --- */
+.flatpickr-day.prevMonthDay, 
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.flatpickr-disabled {
+    /* --- C.2.1. Estilo de Bajo Contraste --- */
+    color: rgba(55, 71, 79, 0.2) !important; 
+    background: transparent !important;
+    box-shadow: none !important;
+    cursor: default !important;
+}
+
+/* --- C.3. Interacción al Hacer Clic (Active) --- */
+.flatpickr-day:active {
+    /* --- C.3.1. Neutralización de Animación de Hundido --- */
+    transform: none !important; 
+    box-shadow: inherit !important; 
+}
+
+/* =====================================================================
+   6. AJUSTES VISUALES / LIMPIEZA
+   ===================================================================== */
+
+/* -----------------------
+   [A] REFINAMIENTO DE ESTRUCTURA
+   ----------------------- */
+
+/* --- A.1. Visibilidad de Filas --- */
+.flatpickr-day.nextMonthDay { 
+    /* --- A.1.1. Restauración de Layout --- */
+    display: flex !important; 
+}
+
+/* --- A.2. Eliminación de Ornamentos Nativos --- */
+.flatpickr-calendar.arrowTop:before, 
+.flatpickr-calendar.arrowTop:after,
+.flatpickr-calendar.arrowBottom:before, 
+.flatpickr-calendar.arrowBottom:after { 
+    /* --- A.2.1. Ocultar Flechas de Anclaje --- */
+    display: none !important; 
+}
+
+
+
+
+
+
+
+
+
+
+/* --- UTILIDADES Y FEEDBACK --- */
+#toast-container { position: fixed; top: 30px; right: 30px; z-index: 9999; }
+.toast {
+    background: var(--bg-color); color: #D9534F; padding: 20px 30px; border-radius: 20px; font-weight: 700;
+    box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+    animation: slideIn 0.5s var(--ease), fadeOut 0.5s 2.5s forwards; margin-bottom: 10px;
+}
+
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes fadeOut { to { transform: translateY(-20px); opacity: 0; } }
+
+.hidden { display: none !important; }
+.spinner { width: 24px; height: 24px; border: 4px solid rgba(0,0,0,0.1); border-left-color: var(--text-main); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }

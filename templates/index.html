@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL IVMS-4200 - DATAMID</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div class="container">
+    <div class="header">
+        <h1 class="titulo-clean">TERMINAL IVMS-4200</h1>
+        <p class="info-bar">ADMINISTRACIÓN DE HORAS | DATAMID</p>
+    </div>
+
+    <div id="seccion-filtros">
+        <form onsubmit="event.preventDefault(); generarReporte();">
+            <div class="filtros-grid">
+                <div class="input-group">
+                    <label>Empleado</label>
+                    <input type="text" id="nombre" class="form-input" value="Julian">
+                </div>
+                <div class="input-group">
+                    <label>Costo Hora</label>
+                    <input type="number" id="pago" class="form-input" value="25" step="any">
+                </div>
+                <div class="input-group">
+                    <label>Bono</label>
+                    <input type="number" id="bono" class="form-input" value="60" step="any">
+                </div>
+                <div class="input-group">
+                    <label>Desde</label>
+                    <input type="date" id="inicio" class="form-input">
+                </div>
+                <div class="input-group">
+                    <label>Hasta</label>
+                    <input type="date" id="fin" class="form-input">
+                </div>
+                <div style="display: flex; align-items: flex-end;">
+                    <button type="submit" id="btn-ir" class="btn-neu">
+                        <span id="btn-text">IR</span>
+                        <div id="btn-loader" class="spinner hidden"></div>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+        <div id="seccion-resultados" class="hidden">
+        <div class="nav-header">
+            <button onclick="location.reload()" class="tab-btn" style="font-weight:900;">← VOLVER</button>
+            <div class="tabs-container" style="display:flex; gap:15px;">
+                <button id="btn-tab-nomina" class="tab-btn active" onclick="cambiarTab('nomina')">NÓMINA</button>
+                <button id="btn-tab-logs" class="tab-btn" onclick="cambiarTab('logs')">LOGS DE MARCAJE</button>
+            </div>
+        </div>
+
+        <div id="tab-nomina" class="panel-resultados">
+            <div class="scroll-area">
+                <table class="table-res"> <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tiempo</th>
+                            <th>Hrs Dec.</th>
+                            <th>Pago Horas</th>
+                            <th>Bono</th>
+                            <th>Total Día</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body-nomina"></tbody>
+                </table>
+            </div>
+            <div class="total-display" id="total-general">
+                </div>
+        </div>
+
+        <div id="tab-logs" class="panel-resultados hidden">
+            <div class="scroll-area">
+                <table class="table-res" style="font-size: 0.85rem;">
+                    <tbody id="body-detalles"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
