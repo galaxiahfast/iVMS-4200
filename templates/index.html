@@ -13,12 +13,6 @@
 
 <div id="toast-container"></div>
 
-
-
-
-
-
-
 <div class="contenedor-principal">
 
     <div class="seccion-cabecera">
@@ -66,11 +60,8 @@
         </form>
     </div>
 
-
-
-
-    
     <div id="seccion-resultados" class="hidden">
+        
         <div class="nav-header">
             <button onclick="location.reload()" class="tab-btn" style="font-weight:900;">← VOLVER</button>
             <div class="tabs-container" style="display:flex; gap:15px;">
@@ -80,17 +71,16 @@
         </div>
 
         <div id="tab-nomina" class="panel-resultados">
+            <div class="nomina-contenedor">
 
-            <div class="tabla-nomina-container">
-                <!-- ENCABEZADO FIJO -->
-                <div class="tabla-header-fijo">
+                <div class="nomina-header">
                     <table class="tabla-nomina">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
                                 <th>Tiempo</th>
                                 <th>Hrs Dec.</th>
-                                <th>Pago Horas</th>
+                                <th>Pago Hrs.</th>
                                 <th>Bono</th>
                                 <th>Total Día</th>
                             </tr>
@@ -98,18 +88,15 @@
                     </table>
                 </div>
 
-                <!-- CUERPO CON PADDING (exterior, sin scroll) -->
-                <div class="tabla-body-scroll">
-                    <!-- CONTENEDOR INTERNO CON SCROLL (100% alto/ancho) -->
-                    <div class="tabla-body-inner">
+                <div class="nomina-cuerpo-exterior">
+                    <div class="nomina-cuerpo-scroll">
                         <table class="tabla-nomina">
                             <tbody id="body-nomina"></tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- FOOTER FIJO -->
-                <div class="tabla-footer-fijo">
+                <div class="nomina-footer">
                     <table class="tabla-nomina">
                         <tfoot>
                             <tr class="fila-totales">
@@ -124,30 +111,34 @@
                     </table>
                 </div>
             </div>
-
         </div>
-
-
 
         <div id="tab-logs" class="panel-resultados hidden">
-            <div class="scroll-area">
-                <table class="table-res tabla-logs">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Fecha y Hora</th>
-                        </tr>
-                    </thead>
-                    <tbody id="body-detalles"></tbody>
-                </table>
-            </div>
-            <div class="total-display pie-logs hidden"></div>
-        </div>
-    </div>
-</div>
+            <div class="logs-contenedor"> <div class="logs-header">
+                    <table class="tabla-logs">
+                        <thead>
+                            <tr>
+                                <th class="col-id">ID</th>
+                                <th class="col-nombre">Nombre</th>
+                                <th class="col-fecha">Fecha y Hora</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                <div class="logs-cuerpo-exterior">
+                    <div class="logs-cuerpo-scroll">
+                        <table class="tabla-logs">
+                            <tbody id="body-detalles">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+
+    </div> </div> <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

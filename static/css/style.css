@@ -415,37 +415,92 @@ input[type=number] {
 
 
 
+
+
 /* =====================================================================
-   PROYECTO: TERMINAL IVMS-4200 - DATAMID
-   MODULO: (02B) DISEÑO INDIVIDUAL - NÓMINA
-   ESTILO: LAYOUT PROFESIONAL COMPACTO (MÁRGENES DE 30px)
+   COMPONENTE: TABLA DE NÓMINA
+   ESTILO: NEUMORFISMO PROFESIONAL
+   ---------------------------------------------------------------------
+   ARQUITECTURA DEL COMPONENTE:
+
+   CONTENEDOR PRINCIPAL
+   │
+   ├── ENCABEZADO FIJO
+   │   ├── Tabla de cabecera
+   │   │   └── Filas de encabezado (Fecha, Tiempo, Hrs Dec., Pago Horas, Bono, Total Día)
+   │   │
+   ├── CUERPO EXTERIOR (PADDING Y BORDES)
+   │   │
+   │   └── CUERPO INTERNO CON SCROLL
+   │       └── Tabla de datos
+   │           └── Celdas del cuerpo (neumórficas)
+   │               ├── .num (horas decimales)
+   │               ├── .monto (pago horas, total día)
+   │               └── .bono
+   │
+   └── FOOTER FIJO
+       └── Tabla de totales
+           └── Fila de totales (TOTALES, tiempo, decimal, pago, bono, general)
+
+   ---------------------------------------------------------------------
+   DESCRIPCIÓN:
+   Tabla de nómina con diseño neumórfico, scroll independiente en el cuerpo,
+   encabezado y footer fijos, márgenes asimétricos (izquierdo 30px, derecho 15px)
+   y barra de scroll personalizada. La tabla tiene un margen derecho de 15px
+   para separarla visualmente de la barra de scroll.
+
+   NOTA:
+   Cada sección del código está delimitada por títulos para facilitar
+   mantenimiento y escalabilidad.
    ===================================================================== */
 
-/* 1. CONTENEDOR PRINCIPAL DE LA TABLA (solo margen lateral) */
-.tabla-nomina-container {
+/* =====================================================================
+   CONTENEDOR PRINCIPAL
+   ===================================================================== */
+
+/* -----------------------
+   [A] BASE DEL CONTENEDOR
+   ----------------------- */
+
+/* --- A.1. Estructura Flexible --- */
+.nomina-contenedor {
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 0 30px;
+    margin: 0 15px 0 30px;
     background: var(--bg-color);
+    border-radius: 20px;  /* Añade esta línea */
+    overflow: hidden;     /* Añade esta línea - recorta lo que sobresale */
 }
 
-/* 2. ENCABEZADO Y FOOTER FIJOS (con margen vertical de 30px) */
-.tabla-header-fijo,
-.tabla-footer-fijo {
+/* =====================================================================
+   ENCABEZADO FIJO
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDOR HEADER
+   ----------------------- */
+
+/* --- A.1. Header --- */
+.nomina-contenedor .nomina-header {
     flex-shrink: 0;
-    margin: 30px 0;
+    margin: 30px 15px 30px 0;
 }
 
-.tabla-header-fijo table,
-.tabla-footer-fijo table {
+/* --- A.2. Tabla de Cabecera --- */
+.nomina-contenedor .nomina-header .tabla-nomina {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+
 }
 
-.tabla-header-fijo th,
-.tabla-footer-fijo td {
+/* -----------------------
+   [B] CELDAS DE CABECERA
+   ----------------------- */
+
+/* --- B.1. Estilo de Celdas --- */
+.nomina-contenedor .nomina-header .tabla-nomina th {
     padding: 0 10px;
     font-size: 0.85rem;
     font-weight: 800;
@@ -453,43 +508,117 @@ input[type=number] {
     vertical-align: middle;
     background: var(--bg-color);
     height: auto;
-}
-
-.tabla-header-fijo th {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* 3. CONTENEDOR EXTERNO CON PADDING (flex vertical) */
-.tabla-body-scroll {
+/* =====================================================================
+   CUERPO EXTERIOR (PADDING Y BORDES)
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDOR EXTERIOR
+   ----------------------- */
+
+/* --- A.1. Padding y Bordes --- */
+.nomina-contenedor .nomina-cuerpo-exterior {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 30px 0;
     background: var(--bg-color);
     min-height: 0;
-    border-top: 1px solid var(--shadow-dark);
-    border-bottom: 1px solid var(--shadow-dark);
+    border-top: 2px solid var(--shadow-dark);
+    border-bottom: 2px solid var(--shadow-dark);
 }
 
-/* 4. CONTENEDOR INTERNO CON SCROLL (ocupa todo el espacio restante) */
-.tabla-body-inner {
+
+
+
+/* =====================================================================
+   CUERPO INTERNO CON SCROLL (CAJITA HUNDIDA)
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDOR CON SCROLL (HUNDIDO)
+   ----------------------- */
+
+/* --- A.1. Efecto Hundido (Neumorfismo Interior) --- */
+.nomina-contenedor .nomina-cuerpo-scroll {
     flex: 1;
     overflow-y: auto;
     scrollbar-gutter: stable;
     background: var(--bg-color);
     min-height: 0;
+    border-radius: 20px;
+    padding: 8px 0;
+    outline: none;
 }
 
-/* 5. TABLA DENTRO DEL SCROLL */
-.tabla-body-inner table {
+/* =====================================================================
+   SCROLLBAR PERSONALIZADA (RELEVE HACIA ARRIBA)
+   ===================================================================== */
+
+/* -----------------------
+   [A] BARRA DE SCROLL (FONDO)
+   ----------------------- */
+
+/* --- A.1. Ancho base (mínimo real del navegador) --- */
+.nomina-contenedor .nomina-cuerpo-scroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* --- A.2. Track (Carril) --- */
+.nomina-contenedor .nomina-cuerpo-scroll::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    border-radius: 10px;
+    margin: 8px 0;
+    box-shadow: 
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -1px -1px 3px var(--shadow-light);
+}
+
+/* -----------------------
+   [B] PULGAR DEL SCROLL (RELEVE HACIA ARRIBA)
+   ----------------------- */
+
+/* --- B.1. Efecto Elevado con borde interno --- */
+.nomina-contenedor .nomina-cuerpo-scroll::-webkit-scrollbar-thumb {
+    background: var(--bg-color);
+    border-radius: 10px;
+    background-clip: padding-box; 
+}
+
+
+
+
+/* =====================================================================
+   CELDAS DEL CUERPO
+   ===================================================================== */
+
+/* -----------------------
+   [A] TABLA DENTRO DEL SCROLL
+   ----------------------- */
+
+   .nomina-contenedor .tabla-nomina {
+    table-layout: fixed;
     width: 100%;
+}
+
+/* --- A.1. Ajuste de Ancho y Margen Derecho --- */
+.nomina-contenedor .nomina-cuerpo-scroll .tabla-nomina {
+    width: calc(100% - 15px);
+    margin-right: 15px;
     border-collapse: separate;
     border-spacing: 0;
 }
 
-/* 6. CELDAS DEL CUERPO (neumórficas individuales) */
-.tabla-body-inner tbody td {
+/* -----------------------
+   [B] CELDAS NEUMÓRFICAS
+   ----------------------- */
+
+/* --- B.1. Diseño Individual --- */
+.nomina-contenedor .nomina-cuerpo-scroll .tabla-nomina tbody td {
     padding: 16px 10px;
     background: var(--bg-color);
     font-weight: 600;
@@ -502,31 +631,109 @@ input[type=number] {
     border-radius: 10px;
 }
 
-/* 7. CENTRADO DE NÚMEROS */
-.num, .monto, .bono {
+/* =====================================================================
+   FILAS ALTERNADAS (ZEBRA STRIPES)
+   ===================================================================== */
+
+/* Color para filas pares */
+.nomina-contenedor .nomina-cuerpo-scroll .tabla-nomina tbody tr:nth-child(even) td {
+    background: rgba(0, 0, 0, 0.03); /* Gris muy sutil */
+}
+
+/* Color para filas impares (opcional, mantiene el original) */
+.nomina-contenedor .nomina-cuerpo-scroll .tabla-nomina tbody tr:nth-child(odd) td {
+    background: var(--bg-color); /* Color original */
+}
+
+/* -----------------------
+   [C] CENTRADO DE NÚMEROS
+   ----------------------- */
+
+/* --- C.1. Alineación Forzada --- */
+.nomina-contenedor .num,
+.nomina-contenedor .monto,
+.nomina-contenedor .bono {
     text-align: center !important;
-}
-
-/* 8. BLOQUE DE DINERO */
-.money {
-    display: inline-block;
-}
-
-/* 9. OCULTAR ELEMENTOS SOBRANTES */
-.total-display.pie-nomina {
-    display: none;
-}
-
-/* 10. PESO DE FUENTE PARA NÚMEROS */
-.num, .monto, .bono {
     font-weight: 800;
 }
 
-/* 11. SCROLLBAR PERSONALIZADA */
-.tabla-body-inner::-webkit-scrollbar {
+/* =====================================================================
+   FOOTER FIJO
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDOR FOOTER
+   ----------------------- */
+
+/* --- A.1. Footer --- */
+.nomina-contenedor .nomina-footer {
+    flex-shrink: 0;
+    margin: 30px 15px 30px 0;
+}
+
+/* --- A.2. Tabla de Totales --- */
+.nomina-contenedor .nomina-footer .tabla-nomina {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* -----------------------
+   [B] CELDAS DE FOOTER
+   ----------------------- */
+
+/* --- B.1. Estilo de Celdas --- */
+.nomina-contenedor .nomina-footer .tabla-nomina td {
+    padding: 0 10px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-align: center;
+    vertical-align: middle;
+    background: var(--bg-color);
+    height: auto;
+}
+
+/* =====================================================================
+   BLOQUE DE DINERO
+   ===================================================================== */
+
+/* -----------------------
+   [A] CONTENEDOR MONETARIO
+   ----------------------- */
+
+/* --- A.1. Display en Línea --- */
+.nomina-contenedor .money {
+    display: inline-block;
+}
+
+/* =====================================================================
+   OCULTAR ELEMENTOS SOBRANTES
+   ===================================================================== */
+
+/* -----------------------
+   [A] PIE DE NÓMINA OCULTO
+   ----------------------- */
+
+/* --- A.1. Limpieza de UI --- */
+.nomina-contenedor .total-display.pie-nomina {
+    display: none;
+}
+
+/* =====================================================================
+   SCROLLBAR PERSONALIZADA
+   ===================================================================== */
+
+/* -----------------------
+   [A] BARRA DE SCROLL VERTICAL
+   ----------------------- */
+
+/* --- A.1. Ancho de la Barra --- */
+.nomina-contenedor .nomina-cuerpo-scroll::-webkit-scrollbar {
     width: 8px;
 }
-.tabla-body-inner::-webkit-scrollbar-thumb {
+
+/* --- A.2. Estilo del Pulgar --- */
+.nomina-contenedor .nomina-cuerpo-scroll::-webkit-scrollbar-thumb {
     background: var(--shadow-dark);
     border-radius: 10px;
     border: 2px solid var(--bg-color);
@@ -540,70 +747,114 @@ input[type=number] {
 
 
 
-
-
-
-
 /* =====================================================================
-   MODULO: (02C) DISEÑO INDIVIDUAL - LOGS DE MARCAJE
-   ESTILO: ENFOQUE AUDITORÍA
-   ---------------------------------------------------------------------
-   ARQUITECTURA DE ESTA SECCIÓN:
-
-   1. COMPONENTES DE DATOS (TABLA LOGS)
-      - .table-res.tabla-logs
-
-   2. AJUSTES DE VISIBILIDAD
-      - .pie-logs
-
-   ---------------------------------------------------------------------
-   DESCRIPCIÓN:
-   Personalización compacta para registros de auditoría. Se prioriza la
-   densidad de información sobre el resalte financiero.
+   REPLICA ESTRUCTURAL: LOGS DE MARCAJE (UNIVERSAL)
    ===================================================================== */
 
-/* =====================================================================
-   1. COMPONENTES DE DATOS (TABLA LOGS)
-   ===================================================================== */
-
-/* -----------------------
-   [A] CABECERA DE TABLA 
-   ----------------------- */
-
-/* --- A.1. Estilo Compacto --- */
-#tab-logs .panel-resultados .scroll-area .table-res.tabla-logs thead th {
-    /* --- A.1.1. Tipografía de Registro --- */
-    padding: 12px;
-    text-align: center;
-    font-size: 0.75rem;
-    color: #5B708B;
-    border-bottom: 1px solid var(--shadow-dark);
-}
-
-/* -----------------------
-   [B] CUERPO Y CELDAS 
-   ----------------------- */
-
-/* --- B.1. Estilo de Auditoría --- */
-#tab-logs .panel-resultados .scroll-area .table-res.tabla-logs tbody td {
-    /* --- B.1.1. Color y Densidad --- */
-    padding: 12px;
-    font-size: 0.85rem;
-    color: #5B708B;
+.logs-contenedor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 15px 30px 30px;
     background: var(--bg-color);
-    box-shadow: inset 1px 1px 3px var(--inset-shadow-dark);
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-/* =====================================================================
-   2. AJUSTES DE VISIBILIDAD
-   ===================================================================== */
-
-/* --- 2.1. Limpieza de Interfaz --- */
-#tab-logs .panel-resultados .total-display.pie-logs {
-    display: none !important;
+/* --- [A] ENCABEZADO --- */
+.logs-contenedor .logs-header {
+    flex-shrink: 0;
+    margin: 30px 15px 30px 0;
 }
 
+/* IMPORTANTE: Mismo ancho que el cuerpo para alinear columnas */
+.logs-contenedor .logs-header .tabla-logs {
+    table-layout: fixed; /* Fuerza el reparto equitativo automático */
+    width: calc(100% - 15px); 
+    margin-right: 15px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
 
+.logs-contenedor .logs-header .tabla-logs th {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- [B] CUERPO EXTERIOR (Líneas divisorias) --- */
+.logs-contenedor .logs-cuerpo-exterior {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    background: var(--bg-color);
+    min-height: 0;
+    border-top: 2px solid var(--shadow-dark);
+    border-bottom: 2px solid var(--shadow-dark);
+}
+
+/* --- [C] CUERPO INTERNO (Cajita hundida con scroll) --- */
+.logs-contenedor .logs-cuerpo-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    background: var(--bg-color);
+    min-height: 0;
+    border-radius: 20px;
+    padding: 8px 0;
+}
+
+/* --- [D] ESTILO DE TABLA Y CELDAS --- */
+.tabla-logs {
+    table-layout: fixed; /* Fuerza el reparto equitativo automático */
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.logs-contenedor .logs-cuerpo-scroll .tabla-logs {
+    width: calc(100% - 15px);
+    margin-right: 15px;
+}
+
+.logs-contenedor .logs-cuerpo-scroll .tabla-logs tbody td {
+    padding: 16px 10px;
+    background: var(--bg-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 
+        inset 2px 2px 5px var(--inset-shadow-dark), 
+        inset -2px -2px 5px var(--inset-shadow-light);
+    border-radius: 10px;
+    /* Evita que textos largos rompan la celda */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Color intercalado */
+.logs-contenedor .logs-cuerpo-scroll .tabla-logs tbody tr:nth-child(even) td {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* --- [E] SCROLLBAR (Réplica exacta) --- */
+.logs-contenedor .logs-cuerpo-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.logs-contenedor .logs-cuerpo-scroll::-webkit-scrollbar-thumb {
+    background: var(--shadow-dark);
+    border-radius: 10px;
+    border: 2px solid var(--bg-color);
+}
+
+/* ELIMINADAS: Las clases .col-id, .col-nombre, etc. 
+   Ahora el navegador reparte el ancho automáticamente 
+   al usar table-layout: fixed sin anchos definidos. */
 
 
 
