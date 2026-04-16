@@ -70,7 +70,7 @@
 
 
     
-        <div id="seccion-resultados" class="hidden">
+    <div id="seccion-resultados" class="hidden">
         <div class="nav-header">
             <button onclick="location.reload()" class="tab-btn" style="font-weight:900;">← VOLVER</button>
             <div class="tabs-container" style="display:flex; gap:15px;">
@@ -80,30 +80,69 @@
         </div>
 
         <div id="tab-nomina" class="panel-resultados">
-            <div class="scroll-area">
-                <table class="table-res"> <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Tiempo</th>
-                            <th>Hrs Dec.</th>
-                            <th>Pago Horas</th>
-                            <th>Bono</th>
-                            <th>Total Día</th>
-                        </tr>
-                    </thead>
-                    <tbody id="body-nomina"></tbody>
-                </table>
-            </div>
-            <div class="total-display" id="total-general">
+
+            <div class="tabla-nomina-container">
+                <!-- ENCABEZADO FIJO -->
+                <div class="tabla-header-fijo">
+                    <table class="tabla-nomina">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tiempo</th>
+                                <th>Hrs Dec.</th>
+                                <th>Pago Horas</th>
+                                <th>Bono</th>
+                                <th>Total Día</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
+
+                <!-- CUERPO CON PADDING (exterior, sin scroll) -->
+                <div class="tabla-body-scroll">
+                    <!-- CONTENEDOR INTERNO CON SCROLL (100% alto/ancho) -->
+                    <div class="tabla-body-inner">
+                        <table class="tabla-nomina">
+                            <tbody id="body-nomina"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- FOOTER FIJO -->
+                <div class="tabla-footer-fijo">
+                    <table class="tabla-nomina">
+                        <tfoot>
+                            <tr class="fila-totales">
+                                <td>TOTALES</td>
+                                <td id="t-tiempo"></td>
+                                <td id="t-decimal" class="num"></td>
+                                <td id="t-pago" class="monto"></td>
+                                <td id="t-bono" class="bono"></td>
+                                <td id="t-total" class="monto"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
         </div>
+
+
 
         <div id="tab-logs" class="panel-resultados hidden">
             <div class="scroll-area">
-                <table class="table-res" style="font-size: 0.85rem;">
+                <table class="table-res tabla-logs">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Fecha y Hora</th>
+                        </tr>
+                    </thead>
                     <tbody id="body-detalles"></tbody>
                 </table>
             </div>
+            <div class="total-display pie-logs hidden"></div>
         </div>
     </div>
 </div>
